@@ -75,7 +75,35 @@ public class FileManager {
         }
     }
 
-    public void writeTasks(List<Task> task){
-        //write the logic for writing tasks here
+    public void writeTasks(List<Task> tasks) {
+        StringBuilder json = new StringBuilder();
+        json.append("["); // open JSON array
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+
+            // build each task as a JSON object
+            json.append("{");
+            json.append("\"id\":").append(t.getId()).append(",");
+            json.append("\"description\":\"").append(t.getDescription()).append("\",");
+            json.append("\"status\":\"").append(t.getStatus()).append("\",");
+            json.append("\"createdAt\":\"").append(t.getCreatedAt()).append("\",");
+            json.append("\"updatedAt\":\"").append(t.getUpdatedAt()).append("\"");
+            json.append("}");
+
+            // commas go between tasks, not after the last one
+            if (i < tasks.size() - 1) {
+                json.append(",");
+            }
+        }
+
+        json.append("]"); // close JSON array
+
+        Path path = Paths.get(System.getProperty("user.dir"), "tasks.json");
+        try {
+            Files.writeString(path, json.toString());
+        } catch (IOException e) {
+            System.out.println("Error writing to tasks.json.");
+        }
     }
 }
