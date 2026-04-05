@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Task {
 
     final private int id;
-    final private String description;
+    private String description;
     private String status;
     final private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -25,6 +25,10 @@ public class Task {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void setDescription(String description){
+        this.description=description;
     }
 
     //Getters

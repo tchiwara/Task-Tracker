@@ -23,4 +23,24 @@ public class TaskManager {
         System.out.println("Task added successfully (ID: " + newId + ")");
     }
 
+    public void update(int id, String newDescription){
+        //read existing tasks
+        List<Task> tasks=fileManager.readTasks();
+        boolean found=false;
+        for(Task task:tasks){
+            if(task.getId()==id){
+                task.setDescription(newDescription);
+                task.setUpdatedAt(LocalDateTime.now());
+                //saving updated tasks
+                fileManager.writeTasks(tasks);
+                System.out.println("Task updated successfully (ID: " + id + ")");
+                found=true;
+                break;
+            }
+        }
+        if(!found){
+            System.out.println("Task with ID " + id + " not found.");
+            return;
+        }
+    }
 }
