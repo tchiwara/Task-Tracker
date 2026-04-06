@@ -109,4 +109,18 @@ public class TaskManager {
             return;
         }
     }
+    public void list(String status) {
+        List<Task> tasks = fileManager.readTasks();
+
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found.");
+            return;
+        }
+
+        for (Task task : tasks) {
+            if (status == null || task.getStatus().equals(status)) {
+                System.out.println("[" + task.getId() + "] " + task.getDescription() + " - " + task.getStatus());
+            }
+        }
+    }
 }
