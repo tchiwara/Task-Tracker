@@ -1,6 +1,8 @@
 package com.tinotenda.task_tracker;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TaskManager {
@@ -34,6 +36,28 @@ public class TaskManager {
                 //saving updated tasks
                 fileManager.writeTasks(tasks);
                 System.out.println("Task updated successfully (ID: " + id + ")");
+                found=true;
+                break;
+            }
+        }
+        if(!found){
+            System.out.println("Task with ID " + id + " not found.");
+            return;
+        }
+    }
+    public void delete(int id){
+        List<Task> tasks=fileManager.readTasks();
+        Iterator<Task> iterator=tasks.iterator();
+        boolean found=false;
+
+
+        while(iterator.hasNext()){
+            Task task=iterator.next();
+            if(task.getId()==id){
+                iterator.remove();
+                //saving updated tasks
+                fileManager.writeTasks(tasks);
+                System.out.println("Task deleted successfully (ID: " + id + ")");
                 found=true;
                 break;
             }
