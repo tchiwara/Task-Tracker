@@ -67,4 +67,25 @@ public class TaskManager {
             return;
         }
     }
+
+    public void markInProgress(int id){
+        //read existing tasks
+        List<Task> tasks=fileManager.readTasks();
+        boolean found=false;
+        for(Task task:tasks){
+            if(task.getId()==id){
+                task.setStatus("in-progress");
+                task.setUpdatedAt(LocalDateTime.now());
+                //saving updated tasks
+                fileManager.writeTasks(tasks);
+                System.out.println("Task updated successfully (ID: " + id + ")");
+                found=true;
+                break;
+            }
+        }
+        if(!found){
+            System.out.println("Task with ID " + id + " not found.");
+            return;
+        }
+    }
 }
